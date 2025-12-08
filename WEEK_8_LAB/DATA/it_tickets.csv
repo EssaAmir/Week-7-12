@@ -1,0 +1,3 @@
+ticket_id,priority,status,category,subject,description,created_date,resolved_date,assigned_to
+TICK-001,Low,Open,Hardware,Mouse broken,Left click not working,2024-11-01,,bob
+TICK-002,High,In Progress,Software,Server down,Main production server unresponsive,2024-11-02,,charlie
