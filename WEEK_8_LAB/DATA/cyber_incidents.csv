@@ -1,0 +1,4 @@
+date,incident_type,severity,status,description,reported_by
+2024-11-01,Phishing,High,Open,Suspicious email link,alice
+2024-11-02,Malware,Critical,Resolved,Ransomware detected,admin
+2024-11-03,DDoS,Medium,Investigating,High traffic spike,alice
