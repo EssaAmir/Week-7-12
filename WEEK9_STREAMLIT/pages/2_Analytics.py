@@ -22,22 +22,29 @@ st.title("Analytics & Reporting")
 # Load CSV data into database
 def load_csv_data():
     conn = connect_database()
+    # Use a path relative to this file to find the DATA folder
+    base_dir = Path(__file__).resolve().parent.parent
+
     tables = {
-        'users_data': 'users.csv',
+        'users_data': 'users.txt',
         'cyber_incidents': 'cyber_incidents.csv',
         'it_tickets': 'it_tickets.csv',
         'datasets_metadata': 'datasets_metadata.csv'
     }
-    
+
     for table_name, csv_file in tables.items():
         cursor = conn.cursor()
         cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}'")
         if not cursor.fetchone():
-            csv_path = Path("DATA") / csv_file
+            csv_path = base_dir / "DATA" / csv_file
             if csv_path.exists():
-                df = pd.read_csv(csv_path)
+                if table_name == 'users_data':
+                    # `users.txt` has no header and follows username,password_hash,role
+                    df = pd.read_csv(csv_path, header=None, names=['username', 'password_hash', 'role'])
+                else:
+                    df = pd.read_csv(csv_path)
                 df.to_sql(table_name, conn, if_exists='replace', index=False)
-    
+
     conn.commit()
     conn.close()
 

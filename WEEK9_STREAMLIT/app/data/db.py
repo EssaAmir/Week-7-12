@@ -1,6 +1,8 @@
 import sqlite3
+from pathlib import Path
 
-DATABASE_FILE = "intelligence_platform.db"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATABASE_FILE = str(BASE_DIR / "intelligence_platform.db")
 
 def connect_database():
     conn = sqlite3.connect(DATABASE_FILE)
